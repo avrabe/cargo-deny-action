@@ -11,35 +11,41 @@ fi
 
 if [ -n "$2" ]
 then
-    git config --global credential.helper store
-    git config --global --replace-all url.https://github.com/.insteadOf ssh://git@github.com/
-    git config --global --add url.https://github.com/.insteadOf git@github.com:
-
-    echo "$2" > "$HOME/.git-credentials"
-    chmod 600 "$HOME/.git-credentials"
+    rustup target add "$2"
 fi
 
 if [ -n "$3" ]
 then
-    mkdir -p "/root/.ssh"
-    chmod 0700 "/root/.ssh"
-    echo "${3}" > "/root/.ssh/id_rsa"
-    chmod 0600 "/root/.ssh/id_rsa"
+    git config --global credential.helper store
+    git config --global --replace-all url.https://github.com/.insteadOf ssh://git@github.com/
+    git config --global --add url.https://github.com/.insteadOf git@github.com:
+
+    echo "$3" > "$HOME/.git-credentials"
+    chmod 600 "$HOME/.git-credentials"
 fi
 
 if [ -n "$4" ]
 then
     mkdir -p "/root/.ssh"
     chmod 0700 "/root/.ssh"
-    echo "${4}" > "/root/.ssh/known_hosts"
-    chmod 0600 "/root/.ssh/known_hosts"
+    echo "${4}" > "/root/.ssh/id_rsa"
+    chmod 0600 "/root/.ssh/id_rsa"
 fi
 
 if [ -n "$5" ]
 then
-    export CARGO_NET_GIT_FETCH_WITH_CLI="$5"
+    mkdir -p "/root/.ssh"
+    chmod 0700 "/root/.ssh"
+    echo "${5}" > "/root/.ssh/known_hosts"
+    chmod 0600 "/root/.ssh/known_hosts"
 fi
 
+if [ -n "$6" ]
+then
+    export CARGO_NET_GIT_FETCH_WITH_CLI="$6"
+fi
+
+shift
 shift
 shift
 shift

@@ -31,6 +31,10 @@ inputs:
     description: "The Rust version that is updated to before running cargo deny"
     required: false
     default: ""
+  rust-target:
+    description: "The Rust target that is to be added before running cargo deny"
+    required: false
+    default: ""
   credentials:
     description: "The git credentials for credential.helper store using github username and github's private access token (PAT)"
     required: false
@@ -53,6 +57,7 @@ runs:
   image: "Dockerfile"
   args:
     - ${{ inputs.rust-version }}
+    - ${{ inputs.rust-target }}
     - ${{ inputs.credentials }}
     - ${{ inputs.ssh-key }}
     - ${{ inputs.ssh-known-hosts }}
